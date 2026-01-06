@@ -27,19 +27,19 @@ with open(file_path, 'r') as file:
         print(parsed)
 
 # Analyze parsed log entries (Only considering error and warning levels for the summary report)
-def analyze_logs(parsed_entries):
+def analyze_logs(entries):
     stats = {"errors": 0,
              "warnings": 0,
              "last_fsm_state": None}
 
-    for e in parsed_entries:
-        if e["level"] == "ERROR":
+    for entry in entries:
+        if entry["level"] == "ERROR":
             stats["errors"] += 1
-        elif e["level"] == "WARN":
+        elif entry["level"] == "WARN":
             stats["warnings"] += 1
 
-        if e["module"] == "FSM":
-            stats["last_fsm_state"] = e["message"]
+        if entry["module"] == "FSM":
+            stats["last_fsm_state"] = entry["message"]
 
     return stats
 

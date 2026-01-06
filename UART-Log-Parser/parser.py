@@ -15,8 +15,13 @@ def parse_line(line):
 
 file_path = "UART-Log-Parser/sample_logs.txt"
 
+parsed_entries = [] # Store a list of all parsed log entries
+
 with open(file_path, 'r') as file:
     lines = file.readlines()
 
     for line in lines:
-        print(parse_line(line.strip()))
+        parsed = parse_line(line.strip())
+        if parsed:
+            parsed_entries.append(parsed)  # This is where we add the parsed entry to the list
+        print(parsed)

@@ -1,5 +1,7 @@
 file_path = "sample_logs.txt"
 
 with open(file_path, 'r') as file:
-    content = file.read()
-    print(content)
+    lines = file.readlines()
+
+    for line in lines:
+        print(line.strip())

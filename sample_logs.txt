@@ -1,0 +1,5 @@
+[000100][INFO][BOOT] System initialized
+[000250][INFO][FSM] State -> INIT
+[000500][WARN][TEMP] Temperature high: 78C
+[000750][ERROR][I2C] Sensor timeout
+[001000][INFO][FSM] State -> RUNNING

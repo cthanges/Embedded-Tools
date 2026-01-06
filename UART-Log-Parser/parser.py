@@ -23,5 +23,34 @@ with open(file_path, 'r') as file:
     for line in lines:
         parsed = parse_line(line.strip())
         if parsed:
-            parsed_entries.append(parsed)  # This is where we add the parsed entry to the list
+            parsed_entries.append(parsed) # This is where we add the parsed entry to the list
         print(parsed)
+
+# Analyze parsed log entries (Only considering error and warning levels for the summary report)
+def analyze_logs(parsed_entries):
+    stats = {"errors": 0,
+             "warnings": 0,
+             "last_fsm_state": None}
+
+    for e in parsed_entries:
+        if e["level"] == "ERROR":
+            stats["errors"] += 1
+        elif e["level"] == "WARN":
+            stats["warnings"] += 1
+
+        if e["module"] == "FSM":
+            stats["last_fsm_state"] = e["message"]
+
+    return stats
+
+# Prints the system summary
+def print_summary(stats):
+    print("\nSystem Summary")
+    print("----------------")
+    print(f"Errors: {stats['errors']}")
+    print(f"Warnings: {stats['warnings']}")
+    print(f"Last FSM State: {stats['last_fsm_state']}")
+
+if __name__ == "__main__":
+    stats = analyze_logs(parsed_entries)
+    print_summary(stats)

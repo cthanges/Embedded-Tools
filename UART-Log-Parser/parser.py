@@ -9,5 +9,3 @@ with open(file_path, 'r') as file:
 
     for line in lines:
         print(line.strip())
-
- # print(help("re"))

@@ -1,4 +1,5 @@
 import re
+import sys
 
 LOG_PATTERN = re.compile(r"\[(\d+)\]\[(\w+)\]\[(\w+)\]\s+(.*)") # Pattern for the log entries
 
@@ -13,7 +14,7 @@ def parse_line(line):
             "module": match.group(3),
             "message": match.group(4)}
 
-file_path = "UART-Log-Parser/sample_logs.txt"
+file_path = "sample_logs.txt"
 
 parsed_entries = [] # Store a list of all parsed log entries
 
@@ -51,7 +52,13 @@ def print_summary(stats):
     print(f"Last FSM State: {stats['last_fsm_state']}")
 
 if __name__ == "__main__":
+    filter_level = None
+    if len(sys.argv) > 1:
+        filter_level = sys.argv[1].upper() # enter ERROR or WARN
+
     for entry in parsed_entries:
+        if filter_level and entry["level"] != filter_level:
+            continue # Skip the entries that don't match the filter level
         print(entry)
 
     stats = analyze_logs(parsed_entries)

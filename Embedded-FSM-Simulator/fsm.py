@@ -14,7 +14,7 @@ class FSM:
         self.state = State.BOOT
 
     def on_event(self, event):
-        old_state = self.state
+        old_state = self.state # Before processing, we need to know the current state
 
         if self.state == State.BOOT:
             if event == Event.POWER_ON:
@@ -45,5 +45,10 @@ class FSM:
                 self.state = State.INIT
             elif event == Event.SHUTDOWN:
                 self.state = State.SHUTDOWN
+
+        if old_state != self.state: # Did the state change?
+            print(f"[FSM] {old_state.name} --{event}--> {self.state.name}")
+        else:
+            print(f"[FSM] Event '{event}' ignored in state {self.state.name}")
 
         return self.state

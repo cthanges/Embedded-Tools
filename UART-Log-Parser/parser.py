@@ -24,7 +24,6 @@ with open(file_path, 'r') as file:
         parsed = parse_line(line.strip())
         if parsed:
             parsed_entries.append(parsed) # This is where we add the parsed entry to the list
-        print(parsed)
 
 # Analyze parsed log entries (Only considering error and warning levels for the summary report)
 def analyze_logs(entries):
@@ -52,5 +51,8 @@ def print_summary(stats):
     print(f"Last FSM State: {stats['last_fsm_state']}")
 
 if __name__ == "__main__":
+    for entry in parsed_entries:
+        print(entry)
+
     stats = analyze_logs(parsed_entries)
     print_summary(stats)

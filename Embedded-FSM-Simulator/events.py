@@ -1,4 +1,6 @@
-class Event:
+from enum import Enum
+
+class Event(Enum):
     POWER_ON = "power_on"
     INIT_COMPLETE = "init_complete"
     START_COMMAND = "start_command"
